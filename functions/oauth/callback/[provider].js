@@ -253,8 +253,8 @@ export async function onRequestGet(context) {
 
   await context.env.DB.prepare(
     `INSERT INTO sessions
-     (id_hash, issuer, subject, email, display_name, expires_at)
-     VALUES (?, ?, ?, ?, ?, ?)`
+     (id_hash, issuer, subject, email, display_name, expires_at, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`
   )
     .bind(
       sessionHash,
@@ -262,7 +262,8 @@ export async function onRequestGet(context) {
       subject,
       email,
       displayName,
-      expiresAt
+      expiresAt,
+      Math.floor(Date.now() / 1000)
     )
     .run();
 
