@@ -1,0 +1,33 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+main {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+a,
+button {
+  font-size: 1rem;
+}
+
+a {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
