@@ -1,6 +1,5 @@
 export function getCookie(request, name) {
-  const cookieHeader =
-    request.headers.get("Cookie");
+  const cookieHeader = request.headers.get("Cookie");
 
   if (!cookieHeader) {
     return null;
@@ -9,13 +8,14 @@ export function getCookie(request, name) {
   const cookies = cookieHeader.split(";");
 
   for (const cookie of cookies) {
-    const [key, ...valueParts] =
-      cookie.trim().split("=");
+    const [key, ...valueParts] = cookie.trim().split("=");
 
     if (key === name) {
-      return decodeURIComponent(
-        valueParts.join("=")
-      );
+      try {
+        return decodeURIComponent(valueParts.join("="));
+      } catch {
+        return valueParts.join("=");
+      }
     }
   }
 
@@ -54,9 +54,7 @@ export function setCookie(name, value, options = {}) {
   }
 
   if (options.sameSite) {
-    parts.push(
-      `SameSite=${options.sameSite}`
-    );
+    parts.push(`SameSite=${options.sameSite}`);
   }
 
   return parts.join("; ");
@@ -74,23 +72,16 @@ export function jsonResponse(
   status = 200,
   headers = {}
 ) {
-  return new Response(
-    JSON.stringify(data),
-    {
-      status,
-      headers: {
-        "Content-Type":
-          "application/json; charset=utf-8",
-        ...headers
-      }
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      ...headers
     }
-  );
+  });
 }
 
-export function jsonError(
-  message,
-  status = 400
-) {
+export function jsonError(message, status = 400) {
   return jsonResponse(
     {
       error: message
